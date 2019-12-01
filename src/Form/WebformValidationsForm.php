@@ -93,9 +93,11 @@ class WebformValidationsForm extends BundleEntityFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
+    // TODO: this should be the form for the actual validation rule, not the validations.
     $webform = $this->getEntity();
     $elements = $webform->getElementsDecoded();
-    ksm($elements);
+
+    $validations = $webform->getThirdPartySettings('webform_validation');
 
     $components = [];
     foreach ($elements as $key => $value) {
@@ -110,7 +112,7 @@ class WebformValidationsForm extends BundleEntityFormBase {
       '#title' => $this->t('Components'),
       '#description' => $this->t('Select the components to be validated by this validation rule'),
       '#options' => $components,
-//      '#default_value' => $config->get('components'),
+      '#default_value' => $validations['components'] ,
     ];
     $form['rule_name'] = [
       '#type' => 'textfield',
@@ -118,7 +120,7 @@ class WebformValidationsForm extends BundleEntityFormBase {
       '#description' => $this->t('Enter a descriptive name for this validation rule'),
       '#maxlength' => 64,
       '#size' => 64,
-//      '#default_value' => $config->get('rule_name'),
+      '#default_value' => $validations['rule_name'],
     ];
     $form['custom_error_message'] = [
       '#type' => 'textfield',
@@ -126,7 +128,7 @@ class WebformValidationsForm extends BundleEntityFormBase {
       '#description' => $this->t('Specify an error message that should be displayed when user input doesn&#039;t pass validation'),
       '#maxlength' => 255,
       '#size' => 64,
-//      '#default_value' => $config->get('custom_error_message'),
+      '#default_value' => $validations['custom_error_message'],
     ];
     return $form;
   }
@@ -135,6 +137,18 @@ class WebformValidationsForm extends BundleEntityFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $webform = $this->getEntity();
+
+    $settings = [
+      'components',
+      'rule_name',
+      'custom_error_message',
+    ];
+    foreach ($settings as $key) {
+      $value = $form_state->getValue($key);
+      $webform->setThirdPartySetting('webform_validation', $key, $value);
+    }
+
     parent::submitForm($form, $form_state);
   }
 
