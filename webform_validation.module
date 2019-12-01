@@ -24,11 +24,9 @@ function webform_validation_help($route_name, RouteMatchInterface $route_match) 
 }
 
 /**
- * Implements hook_entity_type_alter().
+ * Implements hook_entity_type_build().
  */
-function webform_validation_entity_type_alter(array &$entity_types) {
+function webform_validation_entity_type_build(array &$entity_types) {
   // Add a "validations" form handler to the webform entity type.
-  $handler_class = $entity_types['webform']->getHandlerClass('form');
-  $handler_class['validations'] = '\Drupal\webform_validation\Form\WebformValidationsForm';
-  $entity_types['webform']->setHandlerClass('form', $handler_class);
+  $entity_types['webform']->setFormClass('validations', '\Drupal\webform_validation\Form\WebformValidationsForm');
 }
