@@ -1,0 +1,13 @@
+entity.webform.validation_form:
+  path: '/admin/structure/webform/manage/{webform}/validation'
+  defaults:
+    _form: '\Drupal\webform_validation\Form\WebformValidationsForm'
+    _title_callback: '\Drupal\webform\Controller\WebformEntityController::title'
+  requirements:
+    _permission: 'access administration pages'
+    _entity_access: 'webform.update'
+  options:
+    parameters:
+      webform:
+        type: 'entity:webform'
+    _admin_route: TRUE

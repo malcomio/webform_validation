@@ -1,0 +1,7 @@
+name: 'Webform Validation'
+type: module
+description: 'Add validation rules to Webforms.'
+core: 8.x
+package: 'Webform'
+dependencies:
+  - webform

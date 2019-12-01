@@ -1,0 +1,5 @@
+entity.webform.validation_form:
+  title: 'Validation'
+  route_name: entity.webform.validation_form
+  parent_id: entity.webform.edit_form
+
