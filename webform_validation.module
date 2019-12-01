@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * Contains webform_validation.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function webform_validation_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the webform_validation module.
+    case 'help.page.webform_validation':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Form validation for webforms') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function webform_validation_entity_type_alter(array &$entity_types) {
+  // Add a "validations" form handler to the webform entity type.
+  $handler_class = $entity_types['webform']->getHandlerClass('form');
+  $handler_class['validations'] = '\Drupal\webform_validation\Form\WebformValidationsForm';
+  $entity_types['webform']->setHandlerClass('form', $handler_class);
+}
