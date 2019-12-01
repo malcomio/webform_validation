@@ -1,0 +1,24 @@
+{
+  "name": "drupal/webform_validation",
+  "description": "Add validation rules to Webforms.",
+  "type": "drupal-module",
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "homepage": "https://drupal.org/project/webform_validation",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/webform_validation?version=8.x",
+    "source": "http://cgit.drupalcode.org/webform_validation",
+    "docs": "https://www.drupal.org/docs/8/modules/webform_validation",
+    "forum": "https://drupal.stackexchange.com/questions/tagged/webform_validation"
+  },
+  "extra": {
+    "drush": {
+      "services": {
+        "drush.services.yml": "^9"
+      }
+    }
+  },
+  "require-dev": {
+    "drupal/webform": "~5.4"
+  }
+}
